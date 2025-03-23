@@ -48,7 +48,7 @@ import { NamespaceResolver } from './types/Options';
 export default function registerXQueryModule(
 	moduleString: string,
 	options: { debug: boolean } = { debug: false },
-): string {
+): { [s: string]: string } {
 	let parsedModule;
 	try {
 		parsedModule = parseExpression(moduleString, {
@@ -109,6 +109,8 @@ export default function registerXQueryModule(
 			source: moduleString,
 		});
 	}
-
-	return moduleTargetNamespaceURI;
+	
+	const moduleImports: { [s: string]: string } = { };
+	moduleImports[moduleTargetPrefix] = moduleTargetNamespaceURI;
+	return moduleImports;
 }
