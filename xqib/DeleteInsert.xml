@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>   
+    <title>XQIB: Sample page</title>
+    <meta charset="UTF-8"/>
+    <script type="module" src="xqib.js"></script>
+    <script id="xquery-module" type="application/xquery">
+    <![CDATA[	
+module namespace test="http://mansoft.nl/test";
+declare default element namespace "http://www.w3.org/1999/xhtml";
+declare namespace b="http://mansoft.nl/xqib";
+
+declare updating function test:onclick() {
+  delete node b:dom()//input,
+  insert node <hr color="red"/> as last into b:dom()//body
+};
+]]>
+    </script>
+    <script id="xquery-main" type="application/xquery">
+<![CDATA[
+declare namespace b="http://mansoft.nl/xqib";
+
+b:addEventListener(b:dom()//input, "click", "test:onclick()")
+]]>
+    </script>
+  </head>
+  <body>
+    <h1>Delete + Insert</h1>
+    <p/>
+    <input type="button" value="Click to replace me with a line!"/>
+  </body>
+</html>
